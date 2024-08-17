@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv=require('dotenv');
 const mongoose=require('mongoose')
-const PORT=4000;
+const PORT=process.env.PORT||4000;
 const bodyParser=require('body-parser')
 const vendorRoutes = require("./Routes/vendorRoutes")
 const firmRoutes=require("./Routes/firmRoutes")
@@ -26,7 +26,7 @@ app.use('/firm',firmRoutes);
 app.use('/product',productRoutes);
 app.use('/uploads',express.static('uploads'));
 
-app.use('/home',(req,res)=>{
+app.use('/',(req,res)=>{
     res.send("<h1>Welcome to Afreen's Zwiggy app!")
 })
 
