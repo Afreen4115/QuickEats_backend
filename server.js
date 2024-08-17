@@ -27,6 +27,6 @@ app.use('/product',productRoutes);
 app.use('/uploads',express.static('uploads'));
 
 app.use('/home',(req,res)=>{
-    res.send("<h1>Welcome to Afreen's fucking life!")
+    res.send("<h1>Welcome to Afreen's Zwiggy app!")
 })
 
