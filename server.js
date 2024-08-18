@@ -27,7 +27,7 @@ app.use('/firm',firmRoutes);
 app.use('/product',productRoutes);
 app.use('/uploads',express.static('uploads'));
 
-app.use('/',(req,res)=>{
-    res.send("<h1>Welcome to Afreen's Zwiggy app!")
+app.get('/',(req,res)=>{
+    res.send("<h1>Welcome to Afreen's Zwiggy app!</h1>")
 })
 
