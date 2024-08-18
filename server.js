@@ -8,9 +8,10 @@ const vendorRoutes = require("./Routes/vendorRoutes")
 const firmRoutes=require("./Routes/firmRoutes")
 const productRoutes=require("./Routes/productRoutes")
 const path=require('path');
+const cors=require('cors');
 
 dotenv.config();
-
+app.use(cors())
 mongoose.connect(process.env.MONGO_URL)
  .then(()=>console.log("MongoDB connected successfully!"))
  .catch((err)=>console.log(err));
