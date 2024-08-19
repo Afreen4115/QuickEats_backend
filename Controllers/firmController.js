@@ -101,6 +101,7 @@ const deleteFirmById=async(req,res)=>{
         res.status(500).json({error:"Internal server error"})
     }
 }
+
 const updateFirm = async (req, res) => {
     try {
         const firmId = req.params.firmId;
