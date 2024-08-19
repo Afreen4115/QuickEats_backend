@@ -40,9 +40,15 @@ const vendorLogin=async(req,res)=>{
           if(!vendor || !(await bcrypt.compare(password,vendor.password))){
            return  res.status(401).json({error:"Invalid username and password"});
           }
-          const token=jwt.sign({vendorId:vendor._id},secretKey,{expiresIn:"1h"})
-          res.status(200).json({success:"Login successful",token})
-          console.log(email,token);
+          //adding jwt token for id of the vendor record
+
+          const token=jwt.sign({vendorId:vendor._id},secretKey,{expiresIn:"1h"});
+
+          //backend vendor id
+          const vendorId=vendor._id;
+
+          res.status(200).json({success:"Login successful",token,vendorId})
+          console.log(email,'this is token',token);
     }
     catch(error){
       console.log(error);
@@ -52,7 +58,7 @@ const vendorLogin=async(req,res)=>{
 const getAllVendors=async(req,res)=>{
     try {
         const vendors=await Vendor.find().populate('firm');
-        res.json([vendors]);
+        res.json({vendors});
         
     } catch (error) {
         console.log(error);
@@ -60,19 +66,21 @@ const getAllVendors=async(req,res)=>{
     }
 }
 
-const getVendorById=async(req,res)=>{
-    const vendorId=req.params.id;
+const getVendorById = async(req, res) => {
+    const vendorId = req.params.id;
 
     try {
-        const vendor=await Vendor.findById(vendorId).populate('firm');
-        if(!vendor){
-            res.status(404).json({error:"Vendor not found"});
+        const vendor = await Vendor.findById(vendorId).populate('firm');
+        if (!vendor) {
+            return res.status(404).json({ error: "Vendor not found" })
         }
-        res.status(200).json({vendor})
-        
+        const vendorFirmId = vendor.firm[0]._id;
+        res.status(200).json({ vendorId, vendorFirmId, vendor })
+        console.log(vendorFirmId);
     } catch (error) {
         console.log(error);
-        res.status(500).json({error:"Internal server error"})
+        res.status(500).json({ error: "Internal server error" });
     }
 }
+
 module.exports ={vendorRegister,vendorLogin,getAllVendors,getVendorById}

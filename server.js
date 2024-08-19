@@ -28,6 +28,6 @@ app.use('/product',productRoutes);
 app.use('/uploads',express.static('uploads'));
 
 app.get('/',(req,res)=>{
-    res.send("<h1>Welcome to Afreen's Zwiggy app!</h1>")
+    res.send("<h1>Welcome to Afreen's QuickEats app!</h1>")
 })
 

@@ -52,9 +52,9 @@ const getProductByFirm=async(req,res)=>{
         if(!firm){
             return res.status(404).json({error:"No Firm found"});
         }
-        const restaurantName=firm.firmName;
+        // const restaurantName=firm.firmName;
         const products=await Product.find({firm:firmId});
-        res.status(200).json({restaurantName,products});
+        res.status(200).json({products});
         
     } catch (error) {
         console.error(error);
@@ -74,6 +74,8 @@ const deleteProductById=async(req,res)=>{
         res.status(500).json({message:"Internal server error!"});
     }
 }
+
+
 const updateProduct = async (req, res) => {
     try {
         const productId = req.params.productId;

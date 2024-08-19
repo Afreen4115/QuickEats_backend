@@ -21,6 +21,9 @@ const addFirm = async(req, res) => {
         if (!vendor) {
             res.status(404).json({ message: "Vendor not found" })
         }
+        if(vendor.firm.length>1){
+            return res.status(400).json({message:"vendor can have only one firm"})
+        }
         const firm = new Firm({
             firmName,
             area,
@@ -31,9 +34,18 @@ const addFirm = async(req, res) => {
             vendor: vendor._id
         });
        const saveFirm= await firm.save();
+
+       const firmId = saveFirm._id;
+
+       const vendorFirmName=saveFirm.firmName;
+
        vendor.firm.push(saveFirm);
+
        await vendor.save();
-       return res.status(200).json({ message: 'Firm Added successfully '});
+
+       
+
+       return res.status(200).json({ message: 'Firm Added successfully ',firmId,vendorFirmName});
     } catch (error) {
         console.error(error);
         res.status(500).json("intenal server error");
